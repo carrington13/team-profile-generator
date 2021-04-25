@@ -1,5 +1,36 @@
 const inquirer = require('inquirer');
-//const {writeFile, copyJsFile, copyCssFile } = require('./utils/generate-site.js');
+const {writeIndexFile,  copyCssFile } = require('./utils/generate-site.js');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Manager = require('./lib/Manager');
+
+
+const testEmployees = [
+    {
+        employeePosition: 'Manager',
+        name: 'Casey Arrington',
+        id: '1',
+        email: 'caseyarrington13@gmail.com',
+        officeNumber: '1',
+        addAnotherEmployee: true
+      },
+      {
+        employeePosition: 'Engineer',
+        name: 'Bob',
+        id: '2',
+        email: 'bob@bob.com',
+        github: 'bobcodes21',
+        addAnotherEmployee: true
+      },
+      {
+        employeePosition: 'Intern',
+        name: 'Sarah',
+        id: '3',
+        email: 'sarah@mtsu.edu',
+        school: 'MTSU',
+      }
+];
+
 
 const questions = [
     // role?
@@ -109,7 +140,6 @@ const questions = [
 ];
 
 const employeeQuestions = prompt => {
-    console.log(prompt);
     if (!prompt.employees) {
         prompt.employees = [];
     }
@@ -130,76 +160,85 @@ const promptUser = () => {
     return inquirer.prompt({
             name: 'addEmployee',
             type: 'confirm',
-            message: 'Would you like to add a team member?',
+            message: "Would you like to add members to your team?",
             default: false,        
         })
-//         .then(answers => {
-//             if (answers.addEmployee === true) {
-//                return employeeQuestions();
-//             } else {
-//             console.log('Goodbye!');
+}
 
-//             return
-//             }
-//         })
+const createEmployees = (employeeData) => {
+    // Set employeeArr to employeeData property with value of arr of employees
+    const employeeDataArr = employeeData.employees;
+    //console.log(employeeDataArr);
+    console.log(employeeData);
+    // push all 'new Objects' here
+    employeeData.employeeArr = [];
+
+    // // cycle through array of employees Data
+    employeeDataArr.forEach(employee => {
+        // if their employeePosition matches....
+        if (employee.employeePosition === 'Manager') {
+            // create a new object with that employees data and push it to the employeeArr
+            employeeData.employeeArr.push(new Manager(employee));
+        } else if (employee.employeePosition === 'Engineer') {
+
+            employeeData.employeeArr.push(new Engineer(employee));
+        } else if (employee.employeePosition === 'Intern') {
+  
+            employeeData.employeeArr.push(new Intern(employee));
+        }
+        
+    })
+    console.log(employeeData);
+    //eturn employeeData;
+    
 }
 
 promptUser()
     .then(answers => {
-        console.log(answers);
         if (answers.addEmployee === true) {
             return employeeQuestions(answers);
+        } else {
+            console.log("Farewell!");
         }
     })
     .then(employeeData => {
-        console.log(employeeData);
+        createEmployees(employeeData);
     })
-    //.then(employeeQuestionsResponse => {
-      //  console.log(employeeQuestionsResponse);
-        //return
-    //})
-    // promptUser()
-    // .then(employeeQuestions(prompt))
-    // .then(portfolioData => {
-    //   return generatePage(portfolioData);
-    // })
-    // .then(pageHTML => {
-    //   return writeFile(pageHTML)
-    // })
-    // .then(writeFileResponse => {
-    //   console.log(writeFileResponse);
-    //   return copyFile();
-    // })
-    // .then(copyFileResponse => {
-    //   console.log(copyFileResponse);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
-  
-  
+    .then(employeeArr => {
+        console.log(employeeArr);
+    //     //     return generateScript(employeeArr);
+    })
+    // .then(scriptTemplate => {
+    //     return writeJsFile(scriptTemplate);
+    // }) 
+//     .then(writeJsResponse => {
+//         console.log(writeJsResponse);
+//         return copyIndexFile();
+//     })
+//     .then(copyIndexResponse => {
+//         console.log(copyIndexResponse);
+//         return copyCssFile();
+//     })
+//     .then(copyCssResponse => {
+//         console.log(copyCssResponse);
+//    })
+    .catch(err => {
+        console.log(err);
+    })
 
 
 
 
-// `AS A manager
-// I WANT to generate a webpage that displays my team's basic info
-// SO THAT I have quick access to their emails and GitHub profiles``
 
-// GIVEN a command-line application that accepts user input
-// WHEN I am prompted for my team members and their information
-// THEN an HTML file is generated that displays a nicely formatted team roster based on user input
-// WHEN I click on an email address in the HTML
-// THEN my default email program opens and populates the TO field of the email with the address
-// WHEN I click on the GitHub username
-// THEN that GitHub profile opens in a new tab
-// WHEN I start the application
-// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-// WHEN I enter the team manager’s name, employee ID, email address, and office number
-// THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-// WHEN I select the intern option
-// THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-// WHEN I decide to finish building my team
-// THEN I exit the application, and the HTML is generated
+// promptUser()
+// .then(answers => {
+//     //console.log(answers);
+//     createEmployees(testEmployees)
+// })
+// .then(employeeArr => {
+//     console.log(employeeArr)
+//     //generateScript(employeeArr);
+// })
+// //.then(response => {
+//    //console.log(response);
+// //})

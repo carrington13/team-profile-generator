@@ -1,4 +1,47 @@
-module.exports = () => {
+function generateCards(employeeArr) {
+    // take data Arr of each object
+    
+    // use their data to populate cards
+
+
+    // return created cards back
+}
+
+// teamProfiles.forEach(member => {
+        
+//     let mainEl = document.querySelector("main");
+//     let cardContainerEl = document.createElement("div");
+//     let cardTitle = document.createElement("h2");
+//     let cardSubTitle = document.createElement("h3");
+//     let cardBody = document.createElement("div");
+//     let cardTextone = document.createElement("p");
+//     let cardTexttwo = document.createElement("p");
+
+//     cardTitle.textContent = member.name;
+//     cardSubTitle.textContent = member.role;
+//     cardTextone.textContent = member.email;
+//     if (member.role === "Engineer") {
+//         cardTexttwo.textContent = 'Github:' + member.github;
+//     } else if (member.role === "Intern") {
+//         cardTexttwo.textContent = 'School:' + member.school
+//     } else if (member.role === "Manager") {
+//         cardTexttwo.textContent = 'Office Number: ' + member.officeNumber;
+//     }
+
+//     cardBody.appendChild(cardTextone);
+//     cardBody.appendChild(cardTexttwo);
+
+//     cardContainerEl.appendChild(cardTitle);
+//     cardContainerEl.appendChild(cardSubTitle);
+//     cardContainerEl.appendChild(cardBody);
+
+//     mainEl.appendChild(cardContainerEl);
+// })
+
+
+module.exports = employeeData => {
+    const employeeArr = employeeData;
+
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -18,14 +61,12 @@ module.exports = () => {
         </header>
 
         <main>
-            <!-- insert cards here -->
+            ${generateCards(employeeArr)}
         </main>
 
         <footer class="container text-center py-3">
-            <h3 class="text-dark">&copy; ${new Date().getFullYear()} by Casey Arrington </h3>
+            <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${manager.name}</h3>
         </footer>
-
-        <script src="./assets/js/script.js"></script>
     </body>
     </html>
     `
