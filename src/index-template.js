@@ -1,47 +1,48 @@
-function generateCards(employeeArr) {
-    // take data Arr of each object
-    
-    // use their data to populate cards
-
-
-    // return created cards back
+function roleCheck (employee) {
+    if (employee.role === "Manager") {
+        return `
+        Office Number: ${employee.getOfficeNumber()}
+        `
+    } else if ( employee.role === "Engineer") {
+        return `
+        GitHub: <a class="card-link" href="https://github.com/${employee.github}">${employee.github}</a>
+        `
+    } else if (employee.role === "Intern") {
+        return `
+        School: ${employee.getSchool()}
+        `
+    }
+}
+function generateMain(employeeArr) {
+    return `
+    <main>
+        ${employeeArr
+        .map(employee => {
+        return `
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">${employee.getName()}</h2>
+                <h3 class="card-subtitle">${employee.getRole()}</h3>
+            </div>
+            <div class="card-body">
+                <p class="card-text">ID: ${employee.getId()}</p>
+                <p class="card-text">Email: <a class="card-link" href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></p>
+                <p class="card-text">${roleCheck(employee)}</p> 
+            
+            </div>
+        </div>
+        `;
+        })
+        .join('')}
+    </main>
+    `
 }
 
-// teamProfiles.forEach(member => {
-        
-//     let mainEl = document.querySelector("main");
-//     let cardContainerEl = document.createElement("div");
-//     let cardTitle = document.createElement("h2");
-//     let cardSubTitle = document.createElement("h3");
-//     let cardBody = document.createElement("div");
-//     let cardTextone = document.createElement("p");
-//     let cardTexttwo = document.createElement("p");
-
-//     cardTitle.textContent = member.name;
-//     cardSubTitle.textContent = member.role;
-//     cardTextone.textContent = member.email;
-//     if (member.role === "Engineer") {
-//         cardTexttwo.textContent = 'Github:' + member.github;
-//     } else if (member.role === "Intern") {
-//         cardTexttwo.textContent = 'School:' + member.school
-//     } else if (member.role === "Manager") {
-//         cardTexttwo.textContent = 'Office Number: ' + member.officeNumber;
-//     }
-
-//     cardBody.appendChild(cardTextone);
-//     cardBody.appendChild(cardTexttwo);
-
-//     cardContainerEl.appendChild(cardTitle);
-//     cardContainerEl.appendChild(cardSubTitle);
-//     cardContainerEl.appendChild(cardBody);
-
-//     mainEl.appendChild(cardContainerEl);
-// })
 
 
 module.exports = employeeData => {
     const employeeArr = employeeData;
-
+   
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -50,9 +51,8 @@ module.exports = employeeData => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>My Team Members</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/css/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <link rel="stylesheet" href=".style.css">
     </head>
 
     <body>
@@ -60,12 +60,11 @@ module.exports = employeeData => {
         <h1>My Team</h1>
         </header>
 
-        <main>
-            ${generateCards(employeeArr)}
-        </main>
+        ${generateMain(employeeArr)}
+       
 
         <footer class="container text-center py-3">
-            <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${manager.name}</h3>
+            <h3 class="text-dark">&copy; ${new Date().getFullYear()} by Casey Arrington</h3>
         </footer>
     </body>
     </html>

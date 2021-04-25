@@ -2,7 +2,7 @@ const fs = require('fs');
 
 
 // Write index.html and send to .dist
-const writeIndexFile = scriptContent => {
+const writeIndexFile = pageContent => {
     return new Promise((resolve, reject) => {
         fs.writeFile('./dist/index.html', pageContent, err => {
             if (err) {

@@ -3,6 +3,7 @@ const {writeIndexFile,  copyCssFile } = require('./utils/generate-site.js');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
+const generatePage = require('./src/index-template.js');
 
 
 const testEmployees = [
@@ -31,7 +32,7 @@ const testEmployees = [
       }
 ];
 
-
+// Array containing all questions for inquirer/ employee data
 const questions = [
     // role?
     {
@@ -81,13 +82,11 @@ const questions = [
         name: 'email',
         type: 'input',
         message: "What is the team member's email?",
-        validate: id => {
-            if (id) {
-                return true;
-            } else {
-                console.log("Please enter the member's id.");
-                return false;
-            }
+        // Validate code provided/copied from stackOverflow. check README for further credits
+        validate: function(email)
+        {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
         }
     },
     // if "Engineer" then github
@@ -156,6 +155,7 @@ const employeeQuestions = prompt => {
     //}
 }
 
+
 const promptUser = () => {
     return inquirer.prompt({
             name: 'addEmployee',
@@ -188,8 +188,8 @@ const createEmployees = (employeeData) => {
         }
         
     })
-    console.log(employeeData);
-    //eturn employeeData;
+    console.log(employeeData.employeeArr);
+    return employeeData.employeeArr;
     
 }
 
@@ -202,15 +202,15 @@ promptUser()
         }
     })
     .then(employeeData => {
-        createEmployees(employeeData);
+        return createEmployees(employeeData);
     })
     .then(employeeArr => {
         console.log(employeeArr);
-    //     //     return generateScript(employeeArr);
+        return generatePage(employeeArr);
     })
-    // .then(scriptTemplate => {
-    //     return writeJsFile(scriptTemplate);
-    // }) 
+    .then(pageHTML => {
+         return writeIndexFile(pageHTML);
+    }) 
 //     .then(writeJsResponse => {
 //         console.log(writeJsResponse);
 //         return copyIndexFile();
