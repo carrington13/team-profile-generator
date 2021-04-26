@@ -20,7 +20,7 @@ function generateMain(employeeArr) {
             ${employeeArr
             .map(employee => {
             return `
-            <div class="card col-12 col-md-4 col-xl-3 shadow p-3 mb-5 bg-body rounded">
+            <div class="card col-12 col-md-4 col-xl-3 shadow p-3 m-1 mb-5 bg-body rounded">
                 <div class="card-header bg-dark text-light">
                     <h2 class="card-title">${employee.getName()}</h2>
                     <h3 class="card-subtitle">${employee.getRole()}</h3>
@@ -59,7 +59,7 @@ module.exports = employeeData => {
 
     <body>
         <header>
-        <h1 class="bg-dark text-light text-center">My Team</h1>
+        <h1 class="bg-dark text-light text-center p-3">My Team</h1>
         </header>
 
         ${generateMain(employeeArr)}
