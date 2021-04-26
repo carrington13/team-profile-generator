@@ -15,25 +15,27 @@ function roleCheck (employee) {
 }
 function generateMain(employeeArr) {
     return `
-    <main>
-        ${employeeArr
-        .map(employee => {
-        return `
-        <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">${employee.getName()}</h2>
-                <h3 class="card-subtitle">${employee.getRole()}</h3>
+    <main class="container">
+        <div class="row d-flex justify-content-around flex-wrap">
+            ${employeeArr
+            .map(employee => {
+            return `
+            <div class="card col-12 col-md-4 col-xl-3 shadow p-3 mb-5 bg-body rounded">
+                <div class="card-header bg-dark text-light">
+                    <h2 class="card-title">${employee.getName()}</h2>
+                    <h3 class="card-subtitle">${employee.getRole()}</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">ID: ${employee.getId()}</p>
+                    <p class="card-text">Email: <a class="card-link" href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></p>
+                    <p class="card-text">${roleCheck(employee)}</p> 
+                
+                </div>
             </div>
-            <div class="card-body">
-                <p class="card-text">ID: ${employee.getId()}</p>
-                <p class="card-text">Email: <a class="card-link" href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></p>
-                <p class="card-text">${roleCheck(employee)}</p> 
-            
-            </div>
+            `;
+            })
+            .join('')}
         </div>
-        `;
-        })
-        .join('')}
     </main>
     `
 }
@@ -57,13 +59,13 @@ module.exports = employeeData => {
 
     <body>
         <header>
-        <h1>My Team</h1>
+        <h1 class="bg-dark text-light text-center">My Team</h1>
         </header>
 
         ${generateMain(employeeArr)}
        
 
-        <footer class="container text-center py-3">
+        <footer class="footer fixed-bottom container text-center py-3">
             <h3 class="text-dark">&copy; ${new Date().getFullYear()} by Casey Arrington</h3>
         </footer>
     </body>

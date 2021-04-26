@@ -211,34 +211,11 @@ promptUser()
     .then(pageHTML => {
          return writeIndexFile(pageHTML);
     }) 
-//     .then(writeJsResponse => {
-//         console.log(writeJsResponse);
-//         return copyIndexFile();
-//     })
-//     .then(copyIndexResponse => {
-//         console.log(copyIndexResponse);
-//         return copyCssFile();
-//     })
-//     .then(copyCssResponse => {
-//         console.log(copyCssResponse);
-//    })
+    .then(writeIndexResponse => {
+        console.log(writeIndexResponse);
+    })
+
     .catch(err => {
         console.log(err);
     })
 
-
-
-
-
-// promptUser()
-// .then(answers => {
-//     //console.log(answers);
-//     createEmployees(testEmployees)
-// })
-// .then(employeeArr => {
-//     console.log(employeeArr)
-//     //generateScript(employeeArr);
-// })
-// //.then(response => {
-//    //console.log(response);
-// //})
